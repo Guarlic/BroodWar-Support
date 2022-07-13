@@ -31,6 +31,12 @@ const command: ICommand = {
             .setDescription('배치할 병력의 방어력을 설정해주세요.')
             .setRequired(true)
         )
+        .addIntegerOption(option =>
+          option
+            .setName('수')
+            .setDescription('배치할 병력의 수를 설정해주세요.')
+            .setRequired(true)
+        )
     )
     .addSubcommand(command =>
       command
@@ -54,21 +60,28 @@ const command: ICommand = {
             .setDescription('배치할 병력의 방어력을 설정해주세요.')
             .setRequired(true)
         )
+        .addIntegerOption(option =>
+          option
+            .setName('수')
+            .setDescription('배치할 병력의 수를 설정해주세요.')
+            .setRequired(true)
+        )
     ) as SlashCommandBuilder,
   SlashExecute: async (interaction: BaseCommandInteraction) => {
-    // your code goes here...
     const options = interaction.options as CommandInteractionOptionResolver;
 
     const name = options.getString('이름');
     const attack = options.getInteger('공격력');
     const defence = options.getInteger('방어력');
+    const number = options.getInteger('수');
+    const num = !number ? 1 : number;
 
     const reply =
 `
 호위 ${options.getSubcommand()}
-'${name}'
-공격력: ${attack}
-방어력: ${defence}
+'${name}' ${num !== 1 ? `X ${num}` : ''}
+공격력: ${attack! * num} ${num !== 1 ? `(${attack} X ${num})` : ''}
+방어력: ${defence! * num} ${num !== 1 ? `(${defence} X ${num})` : ''}
 `;
 
     interaction.reply(reply);
