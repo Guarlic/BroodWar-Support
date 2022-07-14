@@ -33,8 +33,8 @@ const command: ICommand = {
         )
         .addIntegerOption(option =>
           option
-            .setName('수')
-            .setDescription('배치할 병력의 수를 설정해주세요.')
+            .setName('개수')
+            .setDescription('배치할 병력의 개수를 설정해주세요.')
             .setRequired(true)
         )
     )
@@ -62,8 +62,8 @@ const command: ICommand = {
         )
         .addIntegerOption(option =>
           option
-            .setName('수')
-            .setDescription('배치할 병력의 수를 설정해주세요.')
+            .setName('개수')
+            .setDescription('배치할 병력의 개수를 설정해주세요.')
             .setRequired(true)
         )
     ) as SlashCommandBuilder,
@@ -73,7 +73,7 @@ const command: ICommand = {
     const name = options.getString('이름');
     const attack = options.getInteger('공격력');
     const defence = options.getInteger('방어력');
-    const number = options.getInteger('수');
+    const number = options.getInteger('개수');
     const num = !number ? 1 : number;
 
     const reply =
